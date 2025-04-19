@@ -1,0 +1,3 @@
+@echo off
+echo Starting Eldorado Gaming Marketplace...
+python run.py 
