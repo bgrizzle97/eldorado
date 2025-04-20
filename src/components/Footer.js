@@ -10,7 +10,7 @@ import {
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import DiscordIcon from '@mui/icons-material/Discord';
+import ChatIcon from '@mui/icons-material/Chat';
 
 const Footer = () => {
   return (
@@ -20,10 +20,8 @@ const Footer = () => {
         py: 6,
         px: 2,
         mt: 'auto',
-        backgroundColor: (theme) =>
-          theme.palette.mode === 'light'
-            ? theme.palette.grey[200]
-            : theme.palette.grey[900],
+        backgroundColor: '#FFD700',
+        color: '#000000',
       }}
     >
       <Container maxWidth="lg">
@@ -61,7 +59,7 @@ const Footer = () => {
                 <InstagramIcon />
               </IconButton>
               <IconButton color="inherit" aria-label="Discord">
-                <DiscordIcon />
+                <ChatIcon />
               </IconButton>
             </Box>
           </Grid>

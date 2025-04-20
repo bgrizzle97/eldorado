@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import { 
   AppBar, 
   Toolbar, 
@@ -7,12 +8,13 @@ import {
   InputBase, 
   Box,
   Container,
-  IconButton
+  IconButton,
+  Avatar
 } from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import PersonIcon from '@mui/icons-material/Person';
+import { motion } from 'framer-motion';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -53,25 +55,81 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+const StyledAppBar = styled(AppBar)(({ theme }) => ({
+  backgroundColor: 'transparent',
+  boxShadow: 'none',
+  borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+}));
+
+const MotionButton = motion(Button);
+
+const NavButton = styled(MotionButton)(({ theme }) => ({
+  color: 'white',
+  marginLeft: theme.spacing(2),
+  position: 'relative',
+  overflow: 'hidden',
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    background: 'linear-gradient(45deg, #ffd700, #ff4081)',
+    opacity: 0,
+    transition: 'opacity 0.3s ease',
+  },
+  '&:hover::before': {
+    opacity: 0.1,
+  },
+}));
+
+const MotionAvatar = motion(Avatar);
+
 const Navbar = () => {
   return (
-    <AppBar position="static">
+    <StyledAppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
             variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}
+            component={RouterLink}
+            to="/"
+            sx={{
+              flexGrow: 1,
+              textDecoration: 'none',
+              color: 'white',
+              fontWeight: 'bold',
+            }}
           >
             ELDORADO
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
-            <Button color="inherit">Games</Button>
-            <Button color="inherit">Accounts</Button>
-            <Button color="inherit">Items</Button>
-            <Button color="inherit">Services</Button>
+            <NavButton
+              component={RouterLink}
+              to="/"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Home
+            </NavButton>
+            <NavButton
+              component={RouterLink}
+              to="/about"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              About
+            </NavButton>
+            <NavButton
+              component={RouterLink}
+              to="/contact"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Contact
+            </NavButton>
           </Box>
 
           <Search>
@@ -88,13 +146,23 @@ const Navbar = () => {
             <IconButton color="inherit">
               <ShoppingCartIcon />
             </IconButton>
-            <IconButton color="inherit">
-              <PersonIcon />
+            <IconButton
+              component={RouterLink}
+              to="/profile"
+              sx={{ ml: 2 }}
+            >
+              <MotionAvatar
+                sx={{ bgcolor: 'secondary.main' }}
+                whileHover={{ scale: 1.1, rotate: 360 }}
+                transition={{ duration: 0.5 }}
+              >
+                U
+              </MotionAvatar>
             </IconButton>
           </Box>
         </Toolbar>
       </Container>
-    </AppBar>
+    </StyledAppBar>
   );
 };
 

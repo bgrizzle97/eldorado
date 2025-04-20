@@ -64,7 +64,7 @@ code {
   left: 0;
   right: 0;
   bottom: 0;
-  background: url('/images/hero-bg.jpg') no-repeat center center;
+  background: url('../public/images/hero-bg.jpg') no-repeat center center;
   background-size: cover;
   opacity: 0.1;
   z-index: 0;
