@@ -10,7 +10,9 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Profile from './pages/Profile';
 import PageTransition from './components/PageTransition';
+import AIAssistant from './components/AIAssistant';
 
+// Create a theme instance
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
@@ -26,15 +28,34 @@ const darkTheme = createTheme({
     },
   },
   typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: "'Roboto', 'Open Sans', sans-serif",
     h1: {
+      fontFamily: "'Poppins', sans-serif",
       fontWeight: 700,
     },
     h2: {
+      fontFamily: "'Poppins', sans-serif",
       fontWeight: 600,
     },
     h3: {
+      fontFamily: "'Poppins', sans-serif",
       fontWeight: 600,
+    },
+    h4: {
+      fontFamily: "'Poppins', sans-serif",
+      fontWeight: 500,
+    },
+    h5: {
+      fontFamily: "'Poppins', sans-serif",
+      fontWeight: 500,
+    },
+    h6: {
+      fontFamily: "'Poppins', sans-serif",
+      fontWeight: 500,
+    },
+    button: {
+      fontFamily: "'Roboto', 'Open Sans', sans-serif",
+      fontWeight: 500,
     },
   },
 });
@@ -85,6 +106,7 @@ function App() {
           <main style={{ flex: 1, padding: '20px' }}>
             <AnimatedRoutes />
           </main>
+          <AIAssistant />
           <Footer />
         </div>
       </Router>

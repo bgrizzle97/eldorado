@@ -8,26 +8,37 @@ os.makedirs('public/images', exist_ok=True)
 
 # Image URLs for our games
 image_urls = {
-    'valorant.jpg': 'https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
-    'lol.jpg': 'https://images.unsplash.com/photo-1542751110-97427bbecf20?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
-    'csgo.jpg': 'https://images.unsplash.com/photo-1542751110-97427bbecf20?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
-    'fortnite.jpg': 'https://images.unsplash.com/photo-1542751110-97427bbecf20?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
-    'hero-bg.jpg': 'https://images.unsplash.com/photo-1542751110-97427bbecf20?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80'
+    'valorant.jpg': 'https://raw.githubusercontent.com/bgrizzle97/game-images/main/valorant.jpg',
+    'lol.jpg': 'https://raw.githubusercontent.com/bgrizzle97/game-images/main/lol.jpg',
+    'csgo.jpg': 'https://raw.githubusercontent.com/bgrizzle97/game-images/main/csgo.jpg',
+    'fortnite.jpg': 'https://raw.githubusercontent.com/bgrizzle97/game-images/main/fortnite.jpg',
+    'hero-bg.jpg': 'https://raw.githubusercontent.com/bgrizzle97/game-images/main/gaming-bg.jpg'
 }
 
 # Download and save images
 for filename, url in image_urls.items():
     print(f"Downloading {filename}...")
-    response = requests.get(url)
-    img = Image.open(BytesIO(response.content))
-    
-    # Resize hero background to be larger
-    if filename == 'hero-bg.jpg':
-        img = img.resize((1920, 1080), Image.LANCZOS)
-    else:
-        img = img.resize((800, 450), Image.LANCZOS)
-    
-    img.save(f'public/images/{filename}')
-    print(f"Saved {filename}")
+    try:
+        response = requests.get(url)
+        response.raise_for_status()  # Raise an exception for bad status codes
+        img = Image.open(BytesIO(response.content))
+        
+        # Convert RGBA to RGB if necessary
+        if img.mode in ('RGBA', 'LA'):
+            background = Image.new('RGB', img.size, (18, 18, 18))
+            background.paste(img, mask=img.split()[-1])
+            img = background
+        
+        # Resize hero background to be larger
+        if filename == 'hero-bg.jpg':
+            img = img.resize((1920, 1080), Image.LANCZOS)
+        else:
+            img = img.resize((800, 450), Image.LANCZOS)
+        
+        img.save(f'public/images/{filename}')
+        print(f"Saved {filename}")
+    except Exception as e:
+        print(f"Error downloading {filename}: {str(e)}")
+        continue
 
-print("All images downloaded successfully!") 
+print("Image download process completed!") 
